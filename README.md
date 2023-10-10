@@ -26,10 +26,11 @@ docker network create \
  --gateway=172.28.5.254 \
  dns_subnet
 ```
-## 3. Crear archivos named.conf y named.conf.options
+## 3. Crear archivos named.conf, named.conf.options y named.conf.local
 ### named.conf
 ```console
 include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
 ```
 ### named.conf.options
 ```console
@@ -49,4 +50,32 @@ options {
 		any;
 	};
 };
+```
+### named.conf.local
+```console
+zone "asircastelao.int" {
+	type master;
+	file "/var/lib/bind/db.asircastelao.int";
+	allow-query {
+		any;
+		};
+	};
+```
+## 4. Crear en la carpeta "zonas" la base de datos del DNS
+Archivo "db.asircastelao.int"
+```console
+$TTL 38400	; 10 hours 40 minutes
+@		IN SOA	ns.asircastelao.int. some.email.address. (
+				10000002   ; serial
+				10800      ; refresh (3 hours)
+				3600       ; retry (1 hour)
+				604800     ; expire (1 week)
+				38400      ; minimum (10 hours 40 minutes)
+				)
+@		IN NS	ns.asircastelao.int.
+ns		IN A		172.28.5.1
+test	IN A		172.28.5.4
+www     IN A        172.28.5.7
+alias	IN CNAME	test
+texto	IN TXT		mensaje
 ```
