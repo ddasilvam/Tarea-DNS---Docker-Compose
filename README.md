@@ -4,7 +4,7 @@
 services:
   asir_dns:
     container_name: asir_dns
-    image: internetsystemsconsortium/bind9:9.16
+    image: ubuntu/bind9:latest
     ports:
       - 53:53
     networks:
