@@ -81,3 +81,20 @@ intra	IN A		172.28.5.8
 alias	IN CNAME	test
 texto	IN TXT		mensaje
 ```
+## 5. Pruebas
+Accedemos a una shell en el interior del contenedor:
+```console
+$ docker exect -it nombre_del_contenedor bash
+$ apt update
+$ apt install -y dnsutils
+```
+Instalamos el paquete de utilidades que contiene a la herramienta "dig":
+```console
+$ apt update
+$ apt install -y dnsutils
+```
+Una vez instalado, ejecutamos "dig" apuntando a "web1" utilizando como servidor DNS la dirección IP del propio contenedor:
+```console
+dig @172.28.5.1 web1.asircastelao.int
+```
+Debemos obtener una salida en la cual se nos indique que dicha dirección redirige a 172.28.5.6
