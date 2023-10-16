@@ -2,6 +2,9 @@ services:
   asir_dns:
     container_name: asir_dns
     image: ubuntu/bind9:latest
+    # usamos esta imagen para poder ver los logs
+    # la imagen de internetsystemsconsortium/bind9
+    # no muestra los logs
     ports:
       - 53:53
     networks:
